@@ -20,3 +20,8 @@ App.java is the main class which runs all the functions.Run it to execute the pr
 4. **ExtractDataFromJSON.java** : reads json files from _src\main\resources\UnzippedFiles_ and gets data in order to be filled in ExtractedData.csv.
 5. **Data.java** : It is a model class which has variables, data is filled in to the list of this class which we got from _ExtractDataFromJSON.java_
 6. **InsertDataToCSV.java** : List of data class is is used to fill data into ExtractedData.csv
+
+## Prerequisites
+Here I have already extracted data using Adobe Extract API and unzipped it too.
+
+if you want to do this process yourself, then delete the **output** folder and **UnzippedFiles** folder
