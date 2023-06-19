@@ -13,6 +13,7 @@ Extract data from these 100 invoices in the same form as ExtractedData.csv file
 
 ## How to run
 ##### App.java is the main class which runs all the functions. Run it to execute the program. Location-> src/main/java/App.java
+I havn't removed the credentials.json, private.key and token folder for the ease of evaluation. Replace these files with yours to use yours.
 
 ## How Application works
 1. Extraction of Data from json is done in **ExtractionDataFromJSON**.
