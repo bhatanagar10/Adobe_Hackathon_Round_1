@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ExtractDataFromJSON {
+    //contains text data of elements
     List<String> text = new ArrayList<>();
+
+
+    //contains bounds data of elements
     List<List<Double> >bounds = new ArrayList<>();
     Data model = new Data();
     Integer i=0;
@@ -29,6 +33,7 @@ public class ExtractDataFromJSON {
         }
     }
 
+
     /*
      * For extracting data from json file.
      * Here we are extraction bounds and text of all elements and storing in a list respectively
@@ -37,16 +42,23 @@ public class ExtractDataFromJSON {
 
         try {
             System.out.println("Reading:-"+"UnzippedFiles/unzip"+index);
+            //Reading json file using buffer reader
             BufferedReader in = new BufferedReader(new FileReader("src/main/resources/UnzippedFiles/unzip"+index+"/structuredData.json"));
+
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(in);
+            // get elements list from json
             JSONArray elements = (JSONArray) jsonObject.get("elements");
             total_elements = elements.size();
-//            System.out.println(elements);
+
+            //iterating elements list
             for( Object s:elements){
                 JSONObject o = (JSONObject) parser.parse(s.toString());
+
+                //extracting the Text field
                 text.add((String)o.get("Text"));
 
+                //extraction the bounds array
                 JSONArray boundsjson = (JSONArray) o.get("Bounds");
                 List<Double>temp = new ArrayList<>();
                 if(boundsjson == null){
@@ -75,10 +87,12 @@ public class ExtractDataFromJSON {
     /*
      * Extraction phase 1 includes business related data
      * Business name , business address
+     * extracting elements with first bound 76.72799682617188
      */
     public void extractionPhase1(){
         System.out.println("---------------Phase 1----------------------------");
         List<String>l = new ArrayList<>();
+
         for( ; bounds.get(i).get(0) == 76.72799682617188 ; i++){
             l.add(text.get(i));
         }
@@ -105,6 +119,7 @@ public class ExtractDataFromJSON {
     /*
      * Extraction phase 2 includes data related to invoice
      * Invoice number and issue date
+     * extracting elements with 3rd bound >= 542
      */
     public void extractionPhase2(){
         System.out.println("---------------Phase 2----------------------------");
@@ -129,6 +144,7 @@ public class ExtractDataFromJSON {
     /*
      * Extraction phase 3 includes data related to
      * name of the compnay and about the company
+     * extracting elements with first bound 76.72799682617188
      */
     public void extractionPhase3() throws IOException {
         System.out.println("---------------Phase 3----------------------------");
@@ -152,6 +168,7 @@ public class ExtractDataFromJSON {
     /*
      * Extraction phase 4 includes data related to customer details
      * Name , email, phone number , address
+     * extracting elements with first bound 81.04800415039062
      */
     public void extractionPhase4() throws IOException {
         System.out.println("---------------Phase 4----------------------------");
@@ -206,6 +223,8 @@ public class ExtractDataFromJSON {
     //for invoice description
     /*
      * Extraction phase 5 includes data related to Invoice description
+     * extracting elements with first bound 240.25999450683594
+     *
      */
     public void extractionPhase5() throws IOException {
         System.out.println("---------------Phase 5----------------------------");
@@ -227,6 +246,7 @@ public class ExtractDataFromJSON {
     /*
      * Extraction phase 6 includes data related to payment details
      * Due date and subtotal
+     * extracting elements with first bound 412.8000030517578 or 410.63999938964844
      */
     public void extractionPhase6() {
         System.out.println("---------------Phase 6----------------------------");
@@ -281,6 +301,7 @@ public class ExtractDataFromJSON {
         List<List<String>> l = new ArrayList<>();
         List<String> temp = new ArrayList<>();
 
+        // extract data  until subtotal text comes up
             while(!text.get(i).trim().startsWith("Subtotal")){
                 if(countInRow == 0){
                     l.add(temp);
@@ -295,6 +316,7 @@ public class ExtractDataFromJSON {
             }
 
             List<InvoiceDetails> detailsList = new ArrayList<>();
+            // setting data in object
             for(int x =0 ; x < l.size() ; x++){
                 InvoiceDetails details = new InvoiceDetails();
 
@@ -317,18 +339,26 @@ public class ExtractDataFromJSON {
 
     /*
      * Extraction phase 9 is to extract data for TAX rate
+     * data with first bound > 485 and that does not starts with $
+     * this way we will get data of tax not subtotal
      */
     public void extractionPhase9(){
         System.out.println("---------------Phase 9----------------------------");
-        List<String>l = new ArrayList<>();
+        boolean flag=false;
         for( ; i < total_elements  ; i++){
-            if((bounds.get(i).get(0) > 485) && !text.get(i).equals("null") && !text.get(i).startsWith("$")){
-                l.add(text.get(i));
-                model.setInvoice_Tax(text.get(i).trim());
-                break;
+            if((bounds.get(i).get(0) > 485) && !text.get(i).equals("null") && !text.get(i).startsWith("$") && Integer.parseInt(text.get(i).trim()) <= 100){
+                    System.out.println(text.get(i).trim());
+                    model.setInvoice_Tax(text.get(i).trim());
+                    flag= true;
+                    break;
+
             }
         }
-        display(l);
+
+        if(!flag){
+            System.out.println("10");
+            model.setInvoice_Tax("10");
+        }
     }
 
 
@@ -339,14 +369,14 @@ public class ExtractDataFromJSON {
     public Data getData(int idx) throws IOException {
         index=idx;
         Data();
+
+        //replaing null values with string "null"
         Collections.replaceAll(text , null , "null");
 
-      /*  for(int x=0 ; x < text.size() ; x++){
+        for(int x=0 ; x < text.size() ; x++){
             System.out.println(text.get(x)+"-------------------------"+ bounds.get(x));
-        }*/
-        /*for(int x=0 ; x < text.size() ; x++){
-            System.out.println(text.get(x)+"-------------------------"+ path.get(x));
-        }*/
+        }
+
         extractionPhase1();
         extractionPhase2();
         extractionPhase3();
@@ -358,7 +388,6 @@ public class ExtractDataFromJSON {
         extractionPhase9();
 
 
-        System.out.println(model);
         System.out.println("\n *" +
                 "\n *" +
                 "\n *" +
@@ -373,6 +402,6 @@ public class ExtractDataFromJSON {
 
     public static void main(String[] args) throws IOException {
         ExtractDataFromJSON extractDataFromJSONTest = new ExtractDataFromJSON();
-        extractDataFromJSONTest.getData(77);
+        extractDataFromJSONTest.getData(51);
     }
 }
