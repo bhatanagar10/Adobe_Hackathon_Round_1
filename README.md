@@ -16,6 +16,9 @@ Extract data from these 100 invoices in the same form as ExtractedData.csv file
 ## How Application works
 1. Extraction of Data from json is done in **ExtractionDataFromJSON**.
 2. In this class extraction is done is phases, in each phase different sections of data is extracted
+3. The way it extracts data in phases in shown below, which is the data of outout0.pdf
+
+![Alt text](Phases.png)
 
 ## What each classes are for
 1. **App.java** : This is the main class which executes all the required functions.
