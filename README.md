@@ -1,6 +1,6 @@
 # Adobe_Hackathon_Round_1
 Submission for the round 1 of Adobe PapyrusNebula Hackathon
-This is a Maven Project
+### This is a Maven Java Project
 
 ## Task
 The problem is Extracting information from PDF invoices using Adobe PDF Services Extract API.
