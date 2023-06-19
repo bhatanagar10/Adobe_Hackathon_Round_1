@@ -11,12 +11,12 @@ Extract data from these 100 invoices in the same form as ExtractedData.csv file
 2. Using the JSON to find the meaningful data and fill the ExtractedData.csv file accordingly
 
 ## How to run
-##### App.java is the main class which runs all the functions. Run it to execute the program. src/main/java/App.java
+##### App.java is the main class which runs all the functions. Run it to execute the program. Location-> src/main/java/App.java
 
 ## How Application works
 1. Extraction of Data from json is done in **ExtractionDataFromJSON**.
 2. In this class extraction is done is phases, in each phase different sections of data is extracted
-3. The way it extracts data in phases in shown below, which is the data of outout0.pdf
+3. The way it extracts data in phases in shown below, which is the data of output0.pdf
 
 ![Alt text](Phases.png)
 
