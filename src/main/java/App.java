@@ -26,6 +26,12 @@ public class App {
          */
         List<Data> data = new ArrayList<>();
 
+        /*
+         * WHEN pdf api to be called
+         * unzip function
+         * data extraction from json
+         * uncomment this
+         */
  /*       for(int index=0 ; index < 100 ; index++){
 
             // extract data for resources/Output/output0.pdf to output99.pdf
