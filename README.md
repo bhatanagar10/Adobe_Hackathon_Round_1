@@ -11,7 +11,7 @@ Extract data from these 100 invoices in the same form as ExtractedData.csv file
 2. Using the JSON to find the meaningful data and fill the ExtractedData.csv file accordingly
 
 ## How to run
-##### App.java is the main class which runs all the functions.Run it to execute the program.
+##### App.java is the main class which runs all the functions. Run it to execute the program. src/main/java/App.java
 
 ## How Application works
 1. Extraction of Data from json is done in **ExtractionDataFromJSON**.
