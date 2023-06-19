@@ -373,10 +373,10 @@ public class ExtractDataFromJSON {
         //replaing null values with string "null"
         Collections.replaceAll(text , null , "null");
 
-        for(int x=0 ; x < text.size() ; x++){
+    /*    for(int x=0 ; x < text.size() ; x++){
             System.out.println(text.get(x)+"-------------------------"+ bounds.get(x));
         }
-
+*/
         extractionPhase1();
         extractionPhase2();
         extractionPhase3();
