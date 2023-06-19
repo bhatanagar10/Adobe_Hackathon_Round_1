@@ -27,10 +27,10 @@ public class App {
          */
         List<Data> data = new ArrayList<>();
 
-
+    /*
         for(int index=0 ; index < 100 ; index++){
 
-   /*         // extract data from the pdf files
+            // extract data from the pdf files
             System.out.println("Extracting data from pdf for file "+ index);
             ExtractDataFromPDF extractDataFromPDF = new ExtractDataFromPDF();
             extractDataFromPDF.getData(index);
@@ -38,7 +38,13 @@ public class App {
             //unzip the file
             System.out.println("Extracting files from zip "+ index);
             ExtractFilesFromZip extractFilesFromZip = new ExtractFilesFromZip();
-            extractFilesFromZip.unzipFile(index);*/
+            extractFilesFromZip.unzipFile(index);
+
+        }
+
+     */
+
+        for(int index=0 ; index < 100 ; index++){
 
             //extract data from json
             System.out.println("Extracting data from json");
