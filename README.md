@@ -21,6 +21,11 @@ Extract data from these 100 invoices in the same form as ExtractedData.csv file
 
 ![Alt text](Phases.png)
 
+## Folder Structure
+1. src/main/resources/Output folder contains the 100 pdf files.
+2. output/ contains the compressed files which we get after executing the Adobe Extract API.
+3. src/main/resources/UnzippedFiles contains the extracted files which we get after extraction of .zip files
+
 ## Prerequisites
 Here I have already extracted data using Adobe Extract API and unzipped it too.
 
